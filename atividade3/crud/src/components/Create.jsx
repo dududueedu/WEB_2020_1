@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 //import './style.css'
 
+import axios from 'axios'
 
 export default class Create extends Component{
 
@@ -28,8 +29,25 @@ export default class Create extends Component{
     
     onSubmit(e){
         e.preventDefault() //impede que o browser faça o reload, perdendo assim a informação 
-        console.log('Nome: ' + this.state.nome)
-        this.setState({nome:''})
+        //console.log('Nome: ' + this.state.nome)
+        
+        const novaDisciplina = {nome: this.state.nome,
+                                curso: this.state.curso,
+                                capacidade: this.state.capacidade}
+
+        axios.post('http://localhost:3001/disciplinas', novaDisciplina)
+            .then(
+                (res)=>{
+                    console.log('Disciplina ' +res.data.id+ ' criada com sucesso!')
+                }
+            )
+            .catch(
+                (error)=>{
+                    console.log(error)
+                }
+            )
+        
+        this.setState({nome: '', curso: '', capacidade: ''})
     }
 
     render() {
@@ -44,12 +62,12 @@ export default class Create extends Component{
 
                 <div className="form-group">
                     <label>Curso: </label>
-                    <input type="text" className="form-control"  placeholder="Curso (*)" value={this.state.curso} onChange={this.setCapacidade}/>
+                    <input type="text" className="form-control"  placeholder="Curso (*)" value={this.state.curso} onChange={this.setCurso}/>
                 </div>
 
                 <div className="form-group">
                     <label>Capacidade: </label>
-                    <input type="text" className="form-control"  placeholder="Capacidade (*)"/>
+                    <input type="text" className="form-control"  placeholder="Capacidade (*)" value={this.state.capacidade} onChange={this.setCapacidade}/>
                 </div>
                 <p style = {{ color: "red" }}> (*) Campos obrigatórios! </p>
 

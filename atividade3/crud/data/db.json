@@ -1,0 +1,28 @@
+{
+  "disciplinas": [
+    {
+      "nome": "Lógica de Programação",
+      "curso": "Sistemas de Informação",
+      "capacidade": "45",
+      "id": 1
+    },
+    {
+      "nome": "Estruturas de Dados",
+      "curso": "Sistemas de Informação",
+      "capacidade": "40",
+      "id": 2
+    },
+    {
+      "nome": "FBD",
+      "curso": "Engenharia de Software",
+      "capacidade": "45",
+      "id": 3
+    },
+    {
+      "nome": "Calculo 1",
+      "curso": "Engenharia da Computação",
+      "capacidade": "48",
+      "id": 4
+    }
+  ]
+}
