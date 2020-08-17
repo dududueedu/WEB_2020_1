@@ -7,7 +7,7 @@ export default class List extends Component{
     constructor(props) {
         super(props)
         this.state = { disciplinas: [] }
-        //this.deleteElementId = this.deleteElementId.bind(this)
+        this.deleteElementId = this.deleteElementId.bind(this)
     }
 
     componentDidMount() {
@@ -30,9 +30,19 @@ export default class List extends Component{
             (disc, i) => {
                 return <TableRow disciplina={disc}
                  key={i} 
-                /*apagarElementoPorId={this.apagarElementoPorId}*//>
+                deleteElementId={this.deleteElementId}/>
             }
         )
+    }
+
+    deleteElementId(id) {
+        let disciplinasTemp = this.state.disciplinas
+        for (let i = 0; i < disciplinasTemp.length; i++) {
+            if (disciplinasTemp[i].id === id) {
+                disciplinasTemp.splice(i, 1)
+            }
+        }
+        this.setState({ disciplinas: disciplinasTemp })
     }
 
     render(){

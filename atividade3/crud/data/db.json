@@ -1,28 +1,22 @@
 {
   "disciplinas": [
     {
-      "nome": "Lógica de Programação",
-      "curso": "Sistemas de Informação",
-      "capacidade": "45",
+      "nome": "Logica de Programação",
+      "curso": "Engenharia da Computação",
+      "capacidade": "27",
       "id": 1
     },
     {
       "nome": "Estruturas de Dados",
       "curso": "Sistemas de Informação",
-      "capacidade": "40",
+      "capacidade": "31",
       "id": 2
     },
     {
-      "nome": "FBD",
-      "curso": "Engenharia de Software",
-      "capacidade": "45",
+      "nome": "Cálculo 1",
+      "curso": "DD",
+      "capacidade": "9",
       "id": 3
-    },
-    {
-      "nome": "Calculo 1",
-      "curso": "Engenharia da Computação",
-      "capacidade": "48",
-      "id": 4
     }
   ]
 }

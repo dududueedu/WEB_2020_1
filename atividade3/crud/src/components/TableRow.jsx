@@ -1,8 +1,29 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-//import axios from 'axios'
+import axios from 'axios'
 
 export default class TableRow extends Component {    
+
+    constructor(props) {
+        super(props)
+        this.delete = this.delete.bind(this)
+    }
+
+    delete() {
+        axios.delete('http://localhost:3001/disciplinas/' + this.props.disciplina.id)
+            .then(
+                (res) => {
+                    this.props.deleteElementId(this.props.disciplina.id)
+                    //console.log('APAGADOOOO')
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error)
+                }
+            )
+    }
+
     render() {
         return (
             <tr>
@@ -24,7 +45,7 @@ export default class TableRow extends Component {
                 </td>
 
                 <td style={{ textAlign: "center" }}>
-                    <button onClick={this.apagar} className="btn btn-danger">Deletar</button>
+                    <button onClick={this.delete} className="btn btn-danger">Deletar</button>
                 </td>
             </tr>
 
