@@ -29,7 +29,6 @@ export default class Create extends Component{
     
     onSubmit(e){
         e.preventDefault() //impede que o browser faça o reload, perdendo assim a informação 
-        //console.log('Nome: ' + this.state.nome)
         
         const novaDisciplina = {nome: this.state.nome,
                                 curso: this.state.curso,
@@ -46,7 +45,6 @@ export default class Create extends Component{
                     console.log(error)
                 }
             )
-        
         this.setState({nome: '', curso: '', capacidade: ''})
     }
 

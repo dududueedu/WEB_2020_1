@@ -28,27 +28,23 @@ export default class TableRow extends Component {
         return (
             <tr>
                 <td>
-                    {this.props.disciplina.id}
-                </td>
+                    {this.props.disciplina.id}</td>
+                
                 <td>
-                    {this.props.disciplina.nome}
-                </td>
+                    {this.props.disciplina.nome}</td>
+                
                 <td>
-                    {this.props.disciplina.curso}
-                </td>
+                    {this.props.disciplina.curso}</td>
+                
                 <td>
-                    {this.props.disciplina.capacidade}
-                </td>
+                    {this.props.disciplina.capacidade}</td>
 
                 <td style={{ textAlign: "center" }}>
-                    <Link to={"/edit/" + this.props.disciplina.id} className="btn btn-primary">Editar</Link>
-                </td>
+                    <Link to={"/edit/" + this.props.disciplina.id} className="btn btn-primary">Editar</Link></td>
 
                 <td style={{ textAlign: "center" }}>
-                    <button onClick={this.delete} className="btn btn-danger">Deletar</button>
-                </td>
+                    <button onClick={this.delete} className="btn btn-danger">Deletar</button></td>
             </tr>
-
         )
     }
 }

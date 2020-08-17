@@ -28,8 +28,7 @@ export default class List extends Component{
         if (!this.state.disciplinas) return
         return this.state.disciplinas.map(
             (disc, i) => {
-                return <TableRow disciplina={disc}
-                 key={i} 
+                return <TableRow disciplina={disc} key={i} 
                 deleteElementId={this.deleteElementId}/>
             }
         )
@@ -38,9 +37,7 @@ export default class List extends Component{
     deleteElementId(id) {
         let disciplinasTemp = this.state.disciplinas
         for (let i = 0; i < disciplinasTemp.length; i++) {
-            if (disciplinasTemp[i].id === id) {
-                disciplinasTemp.splice(i, 1)
-            }
+            if (disciplinasTemp[i].id === id) disciplinasTemp.splice(i, 1)
         }
         this.setState({ disciplinas: disciplinasTemp })
     }
