@@ -11,8 +11,9 @@ export default class List extends Component{
     }
 
     componentDidMount() {
-        Axios.get('http://localhost:3001/disciplinas')
-            .then(
+        //Axios.get('http://localhost:3001/disciplinas') json-server 
+        Axios.get('http://localhost:3002/disciplinas/list') // express
+        .then(
                 (response) => {
                     this.setState({ disciplinas: response.data })
                 }
@@ -36,7 +37,7 @@ export default class List extends Component{
 
     deleteElementId(id) {
         let disciplinasTemp = this.state.disciplinas
-        for (let i = 0; i < disciplinasTemp.length; i++) if (disciplinasTemp[i].id === id) disciplinasTemp.splice(i, 1)
+        for (let i = 0; i < disciplinasTemp.length; i++) if (disciplinasTemp[i]._id === id) disciplinasTemp.splice(i, 1)
         this.setState({ disciplinas: disciplinasTemp })
     }
 

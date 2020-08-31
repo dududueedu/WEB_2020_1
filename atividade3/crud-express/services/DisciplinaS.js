@@ -1,7 +1,11 @@
 const DisciplinaM = require('../models/DisciplinaM')
 
-let disciplinas = []
-let _id = 0
+let disciplinas = [
+    {_id: 0, nome: 'Arquitetura', curso: 'ES', capacidade: 34},
+    {_id: 1, nome: 'FUP', curso: 'EC', capacidade: 61},
+    {_id: 2, nome: 'GPN', curso: 'SI', capacidade: 98}
+]
+let _id = 3
 
 class DisciplinaS{
     static register(data){
@@ -25,8 +29,9 @@ class DisciplinaS{
                 disc.nome = data.nome
                 disc.curso = data.curso
                 disc.capacidade = data.capacidade
+                return disc
             }
-            return disc
+            //return disc
         }
         return null
     }
