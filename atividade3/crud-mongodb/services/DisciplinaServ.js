@@ -29,8 +29,9 @@ class DisciplinasServices {
         )
     }
 
-    /*static update(request, response) {
-        DisciplinaModel.findByIdAndUpdate(request.params.id, request.body, {'new': true}).then(
+    static update(request, response) {
+        DisciplinaModel.findByIdAndUpdate(request.params.id, request.body, {'new': true})
+        .then(
             (disciplina) => {
                 response.status(201).json(disciplina)
             }
@@ -41,10 +42,10 @@ class DisciplinasServices {
             }
         )
     }
-
 
     static delete(request, response) {
-        DisciplinaModel.findByIdAndRemove(request.params.id).then(
+        DisciplinaModel.findByIdAndRemove(request.params.id)
+        .then(
             (disciplina) => {
                 response.status(201).json(disciplina)
             }
@@ -56,9 +57,9 @@ class DisciplinasServices {
         )
     }
 
-
     static retrieve(request, response) {
-        DisciplinaModel.findById(request.params.id).then(
+        DisciplinaModel.findById(request.params.id)
+        .then(
             (disciplina) => {
                 response.status(201).json(disciplina)
             }
@@ -68,7 +69,7 @@ class DisciplinasServices {
                 response.status(500).json(error)
             }
         )
-    }*/
+    }
 }
 
 module.exports = DisciplinasServices
