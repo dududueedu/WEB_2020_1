@@ -1,0 +1,22 @@
+{
+  "disciplinas": [
+    {
+      "nome": "Logica de Programação",
+      "curso": "Engenharia da Computação",
+      "capacidade": "27",
+      "id": 1
+    },
+    {
+      "nome": "Estruturas de Dados",
+      "curso": "Sistemas de Informação",
+      "capacidade": "31",
+      "id": 2
+    },
+    {
+      "nome": "Cálculo 1",
+      "curso": "DD",
+      "capacidade": "9",
+      "id": 3
+    }
+  ]
+}

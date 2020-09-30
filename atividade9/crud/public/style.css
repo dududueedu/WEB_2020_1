@@ -1,0 +1,29 @@
+.btn-primary{
+    margin-right: 30px;
+    background-color: #4682B4;
+}
+
+.btn-primary:hover {
+    background-color: #23557e;
+}
+
+.btn-danger{
+    background-color: #CD5C5C;
+}
+
+.btn-danger:hover {
+    background-color: #b63535;
+}
+
+
+.container-main{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+.containerCreate {
+    margin: 80px;
+}
