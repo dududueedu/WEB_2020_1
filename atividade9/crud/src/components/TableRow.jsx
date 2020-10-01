@@ -8,20 +8,13 @@ export default class TableRow extends Component {
         this.delete = this.delete.bind(this)
     }
 
-    delete() {
-        //axios.delete('http://localhost:3001/disciplinas/' + this.props.disciplina.id) json-server
-        /*axios.delete('http://localhost:3002/disciplinas/delete/' + this.props.disciplina._id) //express
-        .then(
-                (res) => {
-                    this.props.deleteElementId(this.props.disciplina._id)
-                    //console.log('APAGADOOOO')
-                }
-            )
-            .catch(
-                (error) => {
-                    console.log(error)
-                }
-            )*/
+    delete(id, nome) {
+        let res = window.confirm(`Deseja apagar ${nome}?`)
+        if(res) {
+            this.props.firebase.getFirestore().collection('disciplinas').doc(id).delete()
+            .then(()=>console.log(`${nome} apagado!`))
+            .catch(error=>console.log(error))
+        }
     }
 
     render() {
@@ -43,7 +36,10 @@ export default class TableRow extends Component {
                     <Link to={"/edit/" + this.props.disciplina._id} className="btn btn-primary">Editar</Link></td>
 
                 <td style={{ textAlign: "center" }}>
-                    <button onClick={this.delete} className="btn btn-danger">Deletar</button></td>
+                    <button onClick={ ()=> this.delete(this.props.disciplina._id, 
+                                        this.props.disciplina.nome)
+                    } 
+                    className="btn btn-danger">Deletar</button></td>
             </tr>
         )
     }

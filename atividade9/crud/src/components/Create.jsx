@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import FirebaseContext from '../utils/FirebaseContext'
 
-//import './style.css'
+const CreatePage = () => (
+    <FirebaseContext.Consumer>
+        { (context) => <Create firebase = {context}/> }
+    </FirebaseContext.Consumer>
+)
 
-import axios from 'axios'
-
-export default class Create extends Component{
+class Create extends Component{
 
     constructor(props){
         super(props)
@@ -29,23 +32,17 @@ export default class Create extends Component{
     
     onSubmit(e){
         e.preventDefault() //impede que o browser faça o reload, perdendo assim a informação 
-        
-        const novaDisciplina = {nome: this.state.nome,
-                                curso: this.state.curso,
-                                capacidade: this.state.capacidade}
+        //1:28
+        this.props.firebase.getFirestore().collection('disciplinas').add(
+            {
+                nome: this.state.nome,
+                curso: this.state.curso,
+                capacidade: this.state.capacidade
+            }
+        )
+        .then(()=>console.log(`Disciplina ${this.state.nome} inserida com sucesso!`))
+        .catch(error=>console.log(error))    
 
-        //axios.post('http://localhost:3001/disciplinas', novaDisciplina) //JSON-SERVER
-        axios.post('http://localhost:3002/disciplinas/register', novaDisciplina) //EXPRESS
-            .then(
-                (res)=>{
-                    console.log('Disciplina ' +res.data._id+ ' criada com sucesso!')
-                }
-            )
-            .catch(
-                (error)=>{
-                    console.log(error)
-                }
-            )
         this.setState({nome: '', curso: '', capacidade: ''})
     }
 
@@ -76,3 +73,5 @@ export default class Create extends Component{
         )
     }
 }
+
+export default CreatePage

@@ -15,7 +15,7 @@ class List extends Component{
     constructor(props) {
         super(props)
         this.state = { disciplinas: [] }
-        this.deleteElementId = this.deleteElementId.bind(this)
+        //this.deleteElementId = this.deleteElementId.bind(this)
     }
 
     componentDidMount() {
@@ -59,16 +59,17 @@ class List extends Component{
         return this.state.disciplinas.map(
             (disc, i) => {
                 return <TableRow disciplina={disc} key={i} 
-                deleteElementId={this.deleteElementId}/>
+                //deleteElementId={this.deleteElementId}
+                firebase={this.props.firebase}/>
             }
         )
     }
 
-    deleteElementId(id) {
+    /*deleteElementId(id) {
         let disciplinasTemp = this.state.disciplinas
         for (let i = 0; i < disciplinasTemp.length; i++) if (disciplinasTemp[i]._id === id) disciplinasTemp.splice(i, 1)
         this.setState({ disciplinas: disciplinasTemp })
-    }
+    }*/
 
     render(){
         return(
