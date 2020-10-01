@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import FirebaseContext from '../utils/FirebaseContext'
+import DisciplinasServ from '../services/FiBDisciplinaServ'
 
-export default class Edit extends Component {
+const EditPage = (props) => (
+    <FirebaseContext.Consumer>
+        { (context) => <Edit firebase = {context} id = {props.match.params.id}/> }
+    </FirebaseContext.Consumer>
+)
+
+class Edit extends Component {
 
     constructor(props) {
         super(props)
@@ -27,43 +34,33 @@ export default class Edit extends Component {
     onSubmit(e) {
         e.preventDefault() //impedir de fazer reload da pagina
 
-        const editaDisciplina = {
-            nome: this.state.nome,
-            curso: this.state.curso,
-            capacidade: this.state.capacidade
-        }
+        const disciplina = {nome: this.state.nome, 
+            curso: this.state.curso, 
+            capacidade: this.state.capacidade}        
 
-        //axios.put('http://localhost:3001/disciplinas/' + this.props.match.params.id, editaDisciplina) json-server
-        axios.put('http://localhost:3002/disciplinas/update/' + this.props.match.params.id, editaDisciplina) //express
-            .then(
-                (res) => {
-                    this.props.history.push('/list')
-                }
-            )
-            .catch(
-                (error) => {
-                    console.log(error)
-                }
-            )
+        DisciplinasServ.edit(
+            this.props.firebase.getFirestore(),
+            (msg) => {
+                if(msg === 'OK') console.log(`Disciplina atualizada!`)
+            },
+            disciplina,
+            this.props.id
+        )
+        this.setState({nome: '', curso: '', capacidade: ''})
     }
 
     componentDidMount() {
-        //axios.get('http://localhost:3001/disciplinas/' + this.props.match.params.id) json-server
-        axios.get('http://localhost:3002/disciplinas/retrieve/' + this.props.match.params.id) //expresss
-        .then(
-                (res) => {
-                    this.setState({
-                        nome: res.data.nome,
-                        curso: res.data.curso,
-                        capacidade: res.data.capacidade
-                    })
-                }
-            )
-            .catch(
-                (error) => {
-                    console.log(error)
-                }
-            )
+        DisciplinasServ.retrieve(this.props.firebase.getFirestore(),
+        (disciplinas) => {
+            if(disciplinas)
+                this.setState({
+                    nome: disciplinas.nome,
+                    curso: disciplinas.curso,
+                    capacidade: disciplinas.capacidade
+                })
+        },
+        this.props.id
+        )
     }
 
 
@@ -116,3 +113,5 @@ export default class Edit extends Component {
         )
     }
 }
+
+export default EditPage

@@ -2,45 +2,43 @@ import React, { Component } from 'react'
 import TableRow from './TableRow'
 
 import FirebaseContext from '../utils/FirebaseContext'
+import DisciplinasServ from '../services/FiBDisciplinaServ'
 
 const ListPage = () => (
     <FirebaseContext.Consumer>
-        { (context) => <List firebase = {context} /> }
+        {(context) => <List firebase={context} />}
     </FirebaseContext.Consumer>
 )
 
 
-class List extends Component{
-    
+class List extends Component {
+
     constructor(props) {
         super(props)
-        this.state = { disciplinas: [] }
-        //this.deleteElementId = this.deleteElementId.bind(this)
+        this._isMounted = false;
+        this.state = { disciplinas: [], loading: false }
     }
 
     componentDidMount() {
-        //Axios.get('http://localhost:3001/disciplinas') json-server 
-        /*Axios.get('http://localhost:3002/disciplinas/list') // express
-        .then(
-                (response) => {
-                    this.setState({ disciplinas: response.data })
-                }
-            )
-            .catch(
-                (error) => {
-                    console.log(error)
-                }
-            )*/
-            this.ref = this.props.firebase.getFirestore().collection('disciplinas')
-            this.ref.onSnapshot(this.alimentarDisciplinas.bind(this))
-            
+        this._isMounted = true;  
+        this.setState({loading: true})
+        DisciplinasServ.list(this.props.firebase.getFirestore(),
+                                (disciplinas) => {
+                                    if(disciplinas){
+                                        if(this._isMounted) this.setState({disciplinas:disciplinas, loading: false})
+                                    }
+                                })
     }
-    
-    alimentarDisciplinas(query){
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
+    /*alimentarDisciplinas(query) {
         let disciplinas = []
         query.forEach(
             (doc) => {
-                const {nome, curso, capacidade} = doc.data()
+                const { nome, curso, capacidade } = doc.data()
                 disciplinas.push(
                     {
                         _id: doc.id,
@@ -51,31 +49,40 @@ class List extends Component{
                 )
             }
         )
-        this.setState({disciplinas:disciplinas})
-    }
+        if(this._isMounted)
+            this.setState({ disciplinas: disciplinas, loading: false})
+    }*/
 
     mountTable() {
         if (!this.state.disciplinas) return
         return this.state.disciplinas.map(
             (disc, i) => {
-                return <TableRow disciplina={disc} key={i} 
-                //deleteElementId={this.deleteElementId}
-                firebase={this.props.firebase}/>
+                return <TableRow disciplina={disc} key={i}
+                    firebase={this.props.firebase} />
             }
         )
     }
 
-    /*deleteElementId(id) {
-        let disciplinasTemp = this.state.disciplinas
-        for (let i = 0; i < disciplinasTemp.length; i++) if (disciplinasTemp[i]._id === id) disciplinasTemp.splice(i, 1)
-        this.setState({ disciplinas: disciplinasTemp })
-    }*/
+    gerarConteudo() {
+        if(this.state.loading) {
+            return (
+                <tr>
+                    <td colSpan='6'>
+                    <div className="align-items-center">
+                        <p> Loading... </p>
+                        <div className="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                        </div>  
+                    </td>
+                </tr>
+            )
+        }else return this.mountTable()
+    }
 
-    render(){
-        return(
-            <div style={{ marginTop: 20}}>
+    render() {
+        return (
+            <div style={{ marginTop: 20 }}>
                 <h2>List Disciplinas</h2>
-                
+ 
                 <table className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
                         <tr>
@@ -87,7 +94,7 @@ class List extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.mountTable()}
+                        {this.gerarConteudo()}
                     </tbody>
                 </table>
             </div>

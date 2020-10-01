@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import DisciplinasServ from '../services/FiBDisciplinaServ'
+
 export default class TableRow extends Component {    
 
     constructor(props) {
@@ -11,9 +13,13 @@ export default class TableRow extends Component {
     delete(id, nome) {
         let res = window.confirm(`Deseja apagar ${nome}?`)
         if(res) {
-            this.props.firebase.getFirestore().collection('disciplinas').doc(id).delete()
-            .then(()=>console.log(`${nome} apagado!`))
-            .catch(error=>console.log(error))
+            DisciplinasServ.delete(
+                this.props.firebase.getFirestore(),
+                (msg) => {
+                    if(msg === 'OK') console.log(`${nome} apagado com sucesso`)
+                },
+                id
+            )
         }
     }
 

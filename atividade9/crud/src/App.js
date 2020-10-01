@@ -7,8 +7,6 @@ import Home from './components/Home'
 import List from './components/List'
 import Edit from './components/Edit'
 
-//import './App.css'
-
 export default class App extends Component {
     render(){
         return(
